@@ -29,7 +29,7 @@
     --destructive-foreground: 210 40% 98%;
 
     --success: 88 77% 78%;
-    --success-foreground: 120 14 97%;
+    --success-foreground: 0 100% 0%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
@@ -73,6 +73,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
