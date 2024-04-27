@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FileIcon, StarIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { SideNav } from "./side-nav";
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -16,19 +17,7 @@ export default function DashboardLayout({
   return (
     <main className="container mx-auto pt-12">
       <div className="flex gap-8">
-        <div className="w-40 flex flex-col gap-4">
-          <Button asChild variant="link">
-            <Link href="/dashboard/files" className="flex gap-2">
-              <FileIcon /> All Files
-            </Link>
-          </Button>
-
-          <Button asChild variant="link">
-            <Link href="/dashboard/favorites" className="flex gap-2">
-              <StarIcon /> Favorites
-            </Link>
-          </Button>
-        </div>
+        <SideNav />
 
         <div className="flex-grow">{children}</div>
       </div>
