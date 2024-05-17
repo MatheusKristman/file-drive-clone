@@ -3,6 +3,7 @@ import {
   GanttChartIcon,
   ImageIcon,
   MoreVertical,
+  StarHalf,
   StarIcon,
   TrashIcon,
 } from "lucide-react";
@@ -42,7 +43,13 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useToast } from "@/components/ui/use-toast";
 
-function FileCardActions({ file }: { file: Doc<"files"> }) {
+function FileCardActions({
+  file,
+  isFavorited,
+}: {
+  file: Doc<"files">;
+  isFavorited: boolean;
+}) {
   const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false);
 
   const deleteFile = useMutation(api.files.deleteFile);
@@ -96,8 +103,15 @@ function FileCardActions({ file }: { file: Doc<"files"> }) {
             }}
             className="flex items-center gap-1 cursor-pointer"
           >
-            <StarIcon className="w-4 h-4" />
-            Favorite
+            {isFavorited ? (
+              <div className="flex gap-1 items-center">
+                <StarHalf className="w-4 h-4" /> Unfavorite
+              </div>
+            ) : (
+              <div className="flex gap-1 items-center">
+                <StarIcon className="w-4 h-4" /> Favorite
+              </div>
+            )}
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
@@ -119,7 +133,17 @@ function getFileUrl(fileId: Id<"_storage">): string {
   return `${process.env.NEXT_PUBLIC_CONVEX_URL}/api/storage/${fileId}`;
 }
 
-export function FileCard({ file }: { file: Doc<"files"> }) {
+export function FileCard({
+  file,
+  favorites,
+}: {
+  file: Doc<"files">;
+  favorites: Doc<"favorites">[];
+}) {
+  const isFavorited = favorites.some(
+    (favorite) => favorite.fileId === file._id
+  );
+
   const typeIcons = {
     image: <ImageIcon />,
     pdf: <FileTextIcon />,
@@ -138,7 +162,7 @@ export function FileCard({ file }: { file: Doc<"files"> }) {
         </CardTitle>
 
         <div className="absolute top-2 right-2">
-          <FileCardActions file={file} />
+          <FileCardActions file={file} isFavorited={isFavorited} />
         </div>
 
         {/* <CardDescription>Card Description</CardDescription> */}

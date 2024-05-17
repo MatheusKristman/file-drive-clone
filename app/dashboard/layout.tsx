@@ -1,7 +1,3 @@
-import Link from "next/link";
-import { FileIcon, StarIcon } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import { SideNav } from "./side-nav";
 
 // export const metadata: Metadata = {
